@@ -42,7 +42,7 @@ services:
             - 80/tcp
             - 8080/tcp
         volumes:
-            - ./config/slicing_base.yaml:/openair-udr/etc/config.yaml
+            - ./config/cn/slicing_base.yaml:/openair-udr/etc/config.yaml
         networks:
             oai-net:
                 ipv4_address: 10.1.20.3
@@ -55,7 +55,7 @@ services:
             - 80/tcp
             - 8080/tcp
         volumes:
-            - ./config/slicing_base.yaml:/openair-udm/etc/config.yaml
+            - ./config/cn/slicing_base.yaml:/openair-udm/etc/config.yaml
         networks:
             oai-net:
                 ipv4_address: 10.1.20.4
@@ -68,7 +68,7 @@ services:
             - 80/tcp
             - 8080/tcp
         volumes:
-            - ./config/slicing_base.yaml:/openair-ausf/etc/config.yaml
+            - ./config/cn/slicing_base.yaml:/openair-ausf/etc/config.yaml
         networks:
             oai-net:
                 ipv4_address: 10.1.20.5
@@ -81,7 +81,7 @@ services:
             - 80/tcp
             - 8080/tcp
         volumes:
-            - ./config/slicing_base.yaml:/openair-nssf/etc/config.yaml
+            - ./config/cn/slicing_base.yaml:/openair-nssf/etc/config.yaml
             - ./config/nssf_slice_config.yaml:/openair-nssf/etc/nssf_slice_config.yaml
         cap_add:
             - NET_ADMIN
@@ -101,7 +101,7 @@ services:
             - 8080/tcp
             - 38412/sctp
         volumes:
-            - ./config/slicing_base.yaml:/openair-amf/etc/config.yaml
+            - ./config/cn/slicing_base.yaml:/openair-amf/etc/config.yaml
         networks:
             oai-net:
                 ipv4_address: 10.1.20.7
