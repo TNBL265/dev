@@ -151,7 +151,7 @@ services:
         ulimits:
           core: -1 # for core dumps
         volumes:
-            - ./conf_ran/gnb-cucp.sa.f1.conf:/opt/oai-gnb/etc/gnb.conf
+            - ./config/ran/gnb-cucp.sa.f1.conf:/opt/oai-gnb/etc/gnb.conf
             - ./startup_scripts:/startup_scripts
         healthcheck:
             test: /bin/bash -c "ps aux | grep -v grep | grep -c softmodem"
@@ -172,7 +172,7 @@ services:
         ulimits:
             core: -1 # for core dumps
         volumes:
-            - ./conf_ran/gnb-cuup.sa.f1.slice1.conf:/opt/oai-gnb/etc/gnb.conf
+            - ./config/ran/gnb-cuup.sa.f1.slice1.conf:/opt/oai-gnb/etc/gnb.conf
             - ./startup_scripts:/startup_scripts
         networks:
             oai-net:
@@ -190,7 +190,7 @@ services:
             oai-net:
                 ipv4_address: 10.1.100.10
         volumes:
-            - ./conf_ran/gnb-du.sa.band78.106prb.rfsim.conf:/opt/oai-gnb/etc/gnb.conf
+            - ./config/ran/gnb-du.sa.band78.106prb.rfsim.conf:/opt/oai-gnb/etc/gnb.conf
             - ./startup_scripts:/startup_scripts
         healthcheck:
             test: /bin/bash -c "pgrep nr-softmodem"
@@ -216,7 +216,7 @@ services:
             oai-net:
                 ipv4_address: 10.1.100.101
         volumes:
-            - ./conf_ran/nrue.uicc.conf:/opt/oai-nr-ue/etc/nr-ue.conf
+            - ./config/ran/nrue.uicc.conf:/opt/oai-nr-ue/etc/nr-ue.conf
             - ./startup_scripts:/startup_scripts
         healthcheck:
             test: /bin/bash -c "pgrep nr-uesoftmodem"
