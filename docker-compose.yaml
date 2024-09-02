@@ -82,7 +82,7 @@ services:
             - 8080/tcp
         volumes:
             - ./config/cn/slicing_base.yaml:/openair-nssf/etc/config.yaml
-            - ./config/nssf_slice_config.yaml:/openair-nssf/etc/nssf_slice_config.yaml
+            - ./config/cn/nssf_slice_config.yaml:/openair-nssf/etc/nssf_slice_config.yaml
         cap_add:
             - NET_ADMIN
             - SYS_ADMIN
