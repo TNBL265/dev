@@ -121,19 +121,19 @@ services:
                 ipv4_address: 10.1.20.81
         privileged: true
     
-    # oai-smf-slice2:
-    #     container_name: "oai-smf-slice2"
-    #     image: oaisoftwarealliance/oai-smf:develop
-    #     expose:
-    #         - 80/tcp
-    #         - 8080/tcp
-    #         - 8805/udp
-    #     volumes:
-    #         - ./config/cn/slice2.yaml:/openair-smf/etc/config.yaml
-    #     networks:
-    #         oai-net:
-    #             ipv4_address: 10.1.20.82
-    #     privileged: true
+    oai-smf-slice2:
+        container_name: "oai-smf-slice2"
+        image: oaisoftwarealliance/oai-smf:develop
+        expose:
+            - 80/tcp
+            - 8080/tcp
+            - 8805/udp
+        volumes:
+            - ./config/cn/slice2.yaml:/openair-smf/etc/config.yaml
+        networks:
+            oai-net:
+                ipv4_address: 10.1.20.82
+        privileged: true
 
     oai-upf-slice1:
         container_name: "oai-upf-slice1"
@@ -158,28 +158,28 @@ services:
             oai-n6:
         entrypoint: ["/openair-upf/bin/oai_upf", "-c", "/openair-upf/etc/config.yaml", "-o"]
 
-    # oai-upf-slice2:
-    #     container_name: "oai-upf-slice2"
-    #     image: oaisoftwarealliance/oai-upf:develop
-    #     expose:
-    #         - 2152/udp
-    #         - 8805/udp
-    #         - 8080/tcp
-    #     volumes:
-    #         - ./config/cn/slice2.yaml:/openair-upf/etc/config.yaml
-    #     environment:
-    #         - TZ=Europe/Paris
-    #     cap_add:
-    #         - NET_ADMIN
-    #         - SYS_ADMIN
-    #     cap_drop:
-    #         - ALL
-    #     privileged: true
-    #     networks:
-    #         oai-net:
-    #             ipv4_address: 10.1.20.92
-    #         oai-n6:
-    #     entrypoint: ["/openair-upf/bin/oai_upf", "-c", "/openair-upf/etc/config.yaml", "-o"]
+    oai-upf-slice2:
+        container_name: "oai-upf-slice2"
+        image: oaisoftwarealliance/oai-upf:develop
+        expose:
+            - 2152/udp
+            - 8805/udp
+            - 8080/tcp
+        volumes:
+            - ./config/cn/slice2.yaml:/openair-upf/etc/config.yaml
+        environment:
+            - TZ=Europe/Paris
+        cap_add:
+            - NET_ADMIN
+            - SYS_ADMIN
+        cap_drop:
+            - ALL
+        privileged: true
+        networks:
+            oai-net:
+                ipv4_address: 10.1.20.92
+            oai-n6:
+        entrypoint: ["/openair-upf/bin/oai_upf", "-c", "/openair-upf/etc/config.yaml", "-o"]
 
     # RAN
     oai-cu-cp:
@@ -219,22 +219,22 @@ services:
         tty: true
         entrypoint: ["bash", "-c", "/startup_scripts/oai-cu-up-slice1.sh"]
 
-    # oai-cu-up-slice2:
-    #     container_name: "oai-cu-up-slice2"
-    #     image: oai-nr-cuup:ubuntu22
-    #     privileged: true
-    #     environment:
-    #         USE_ADDITIONAL_OPTIONS: --sa
-    #     ulimits:
-    #         core: -1 # for core dumps
-    #     volumes:
-    #         - ./config/ran/gnb-cuup.sa.f1.slice2.conf:/opt/oai-gnb/etc/gnb.conf
-    #         - ./startup_scripts:/startup_scripts
-    #     networks:
-    #         oai-net:
-    #             ipv4_address: 10.1.20.12
-    #     tty: true
-    #     entrypoint: ["bash", "-c", "/startup_scripts/oai-cu-up-slice2.sh"]
+    oai-cu-up-slice2:
+        container_name: "oai-cu-up-slice2"
+        image: oai-nr-cuup:ubuntu22
+        privileged: true
+        environment:
+            USE_ADDITIONAL_OPTIONS: --sa
+        ulimits:
+            core: -1 # for core dumps
+        volumes:
+            - ./config/ran/gnb-cuup.sa.f1.slice2.conf:/opt/oai-gnb/etc/gnb.conf
+            - ./startup_scripts:/startup_scripts
+        networks:
+            oai-net:
+                ipv4_address: 10.1.20.12
+        tty: true
+        entrypoint: ["bash", "-c", "/startup_scripts/oai-cu-up-slice2.sh"]
 
     oai-du:
         image: oaisoftwarealliance/oai-gnb:develop
