@@ -46,7 +46,7 @@ http_version: 2
 ############## SBI Interfaces
 nfs:
   smf:
-    host: oai-smf-slice1
+    host: oai-smf-slice2
     sbi:
       port: 8080
       api_version: v1
@@ -113,9 +113,9 @@ upf:
   remote_n6_gw: 127.0.0.1      # Dummy host since simple-switch does not use N6 GW
   upf_info:
     sNssaiUpfInfoList:
-      - sNssai: *slice1
+      - sNssai: *slice2
         dnnUpfInfoList:
-          - dnn: "oai1"
+          - dnn: "oai2"
 
 ## DNN configuration
 dnns:
