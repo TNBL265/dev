@@ -1,4 +1,16 @@
 services:
+    # Debugger
+    sniffer:
+        container_name: "sniffer"
+        image: nicolaka/netshoot
+        command: ["tcpdump", "-i", "any", "-w", "/tmp/capture.pcap"]
+        volumes:
+            - ./capture:/tmp
+        networks:
+            - oai-net
+        cap_add:
+            - NET_ADMIN
+        privileged: true
     # CN
     mysql:
         container_name: "mysql"
