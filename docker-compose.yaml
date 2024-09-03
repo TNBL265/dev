@@ -190,7 +190,6 @@ services:
           core: -1 # for core dumps
         volumes:
             - ./config/ran/gnb-cucp.sa.f1.conf:/opt/oai-gnb/etc/gnb.conf
-            # - ./startup_scripts:/startup_scripts
         healthcheck:
             test: /bin/bash -c "ps aux | grep -v grep | grep -c softmodem"
             interval: 10s
@@ -214,7 +213,6 @@ services:
             core: -1 # for core dumps
         volumes:
             - ./config/ran/gnb-cuup.sa.f1.slice1.conf:/opt/oai-gnb/etc/gnb.conf
-            # - ./startup_scripts:/startup_scripts
         networks:
             oai-net:
                 ipv4_address: 10.1.20.11
@@ -232,7 +230,6 @@ services:
             core: -1 # for core dumps
         volumes:
             - ./config/ran/gnb-cuup.sa.f1.slice2.conf:/opt/oai-gnb/etc/gnb.conf
-            # - ./startup_scripts:/startup_scripts
         networks:
             oai-net:
                 ipv4_address: 10.1.20.12
@@ -251,7 +248,6 @@ services:
                 ipv4_address: 10.1.100.10
         volumes:
             - ./config/ran/gnb-du.sa.band78.106prb.rfsim.conf:/opt/oai-gnb/etc/gnb.conf
-            # - ./startup_scripts:/startup_scripts
         healthcheck:
             test: /bin/bash -c "pgrep nr-softmodem"
             interval: 10s
@@ -280,7 +276,6 @@ services:
                 ipv4_address: 10.1.100.101
         volumes:
             - ./config/ran/nrue.uicc.conf:/opt/oai-nr-ue/etc/nr-ue.conf
-            # - ./startup_scripts:/startup_scripts
         healthcheck:
             test: /bin/bash -c "pgrep nr-uesoftmodem"
             interval: 10s
@@ -306,7 +301,6 @@ services:
                 ipv4_address: 10.1.100.102
         volumes:
             - ./config/ran/nrue.uicc.conf:/opt/oai-nr-ue/etc/nr-ue.conf
-            # - ./startup_scripts:/startup_scripts
         healthcheck:
             test: /bin/bash -c "pgrep nr-uesoftmodem"
             interval: 10s
