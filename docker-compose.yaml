@@ -59,7 +59,7 @@ services:
         volumes:
             - ./config/cn/slicing_base.yaml:/openair-udm/etc/config.yaml
         depends_on:
-            - oai_udr
+            - oai-udr
         networks:
             oai-net:
                 ipv4_address: 10.1.20.4
