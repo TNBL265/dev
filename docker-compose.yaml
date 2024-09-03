@@ -267,7 +267,7 @@ services:
             USE_ADDITIONAL_OPTIONS: --sa --rfsim --log_config.global_log_options level,nocolor,time
                                     -r 106 --numerology 1 -C 3619200000
                                     --uicc0.imsi 001010000000001
-                                    --uicc0key 12345678901234567890123456789012
+                                    --uicc0.key 12345678901234567890123456789012
                                     --uicc0.opc 12345678123456781234567812345678
                                     --uicc0.dnn oai1
                                     --uicc0.nssai_sst 1
@@ -294,7 +294,7 @@ services:
             USE_ADDITIONAL_OPTIONS: --sa --rfsim --log_config.global_log_options level,nocolor,time
                                     -r 106 --numerology 1 -C 3619200000
                                     --uicc0.imsi 001010000000002
-                                    --uicc0key 12345678901234567890123456789012
+                                    --uicc0.key 12345678901234567890123456789012
                                     --uicc0.opc 12345678123456781234567812345678
                                     --uicc0.dnn oai2
                                     --uicc0.nssai_sst 1
