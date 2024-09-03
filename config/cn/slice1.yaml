@@ -55,7 +55,7 @@ nfs:
       interface_name: eth0
       port: 8805
   nrf:
-    host: 10.1.20.2
+    host: oai-nrf-slice
     sbi:
       port: 8080
       api_version: v1
