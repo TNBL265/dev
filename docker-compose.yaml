@@ -190,7 +190,7 @@ services:
           core: -1 # for core dumps
         volumes:
             - ./config/ran/gnb-cucp.sa.f1.conf:/opt/oai-gnb/etc/gnb.conf
-            - ./startup_scripts:/startup_scripts
+            # - ./startup_scripts:/startup_scripts
         healthcheck:
             test: /bin/bash -c "ps aux | grep -v grep | grep -c softmodem"
             interval: 10s
@@ -200,7 +200,7 @@ services:
             oai-net:
                 ipv4_address: 10.1.20.10
         tty: true
-        entrypoint: ["bash", "-c", "/startup_scripts/oai-cu-cp.sh"]
+        # entrypoint: ["bash", "-c", "/startup_scripts/oai-cu-cp.sh"]
 
     oai-cu-up-slice1:
         container_name: "oai-cu-up-slice1"
@@ -212,12 +212,12 @@ services:
             core: -1 # for core dumps
         volumes:
             - ./config/ran/gnb-cuup.sa.f1.slice1.conf:/opt/oai-gnb/etc/gnb.conf
-            - ./startup_scripts:/startup_scripts
+            # - ./startup_scripts:/startup_scripts
         networks:
             oai-net:
                 ipv4_address: 10.1.20.11
         tty: true
-        entrypoint: ["bash", "-c", "/startup_scripts/oai-cu-up-slice1.sh"]
+        # entrypoint: ["bash", "-c", "/startup_scripts/oai-cu-up-slice1.sh"]
 
     oai-cu-up-slice2:
         container_name: "oai-cu-up-slice2"
@@ -229,12 +229,12 @@ services:
             core: -1 # for core dumps
         volumes:
             - ./config/ran/gnb-cuup.sa.f1.slice2.conf:/opt/oai-gnb/etc/gnb.conf
-            - ./startup_scripts:/startup_scripts
+            # - ./startup_scripts:/startup_scripts
         networks:
             oai-net:
                 ipv4_address: 10.1.20.12
         tty: true
-        entrypoint: ["bash", "-c", "/startup_scripts/oai-cu-up-slice2.sh"]
+        # entrypoint: ["bash", "-c", "/startup_scripts/oai-cu-up-slice2.sh"]
 
     oai-du:
         image: oaisoftwarealliance/oai-gnb:develop
