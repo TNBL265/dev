@@ -43,8 +43,6 @@ services:
             - 8080/tcp
         volumes:
             - ./config/cn/slicing_base.yaml:/openair-udr/etc/config.yaml
-        depends_on:
-            - mysql
         networks:
             oai-net:
                 ipv4_address: 10.1.20.3
@@ -58,8 +56,6 @@ services:
             - 8080/tcp
         volumes:
             - ./config/cn/slicing_base.yaml:/openair-udm/etc/config.yaml
-        depends_on:
-            - oai-udr
         networks:
             oai-net:
                 ipv4_address: 10.1.20.4
@@ -73,8 +69,6 @@ services:
             - 8080/tcp
         volumes:
             - ./config/cn/slicing_base.yaml:/openair-ausf/etc/config.yaml
-        depends_on:
-            - oai-udm
         networks:
             oai-net:
                 ipv4_address: 10.1.20.5
@@ -108,9 +102,6 @@ services:
             - 38412/sctp
         volumes:
             - ./config/cn/slicing_base.yaml:/openair-amf/etc/config.yaml
-        depends_on:
-            - oai-nrf-slice
-            - oai-ausf
         networks:
             oai-net:
                 ipv4_address: 10.1.20.7
@@ -125,9 +116,6 @@ services:
             - 8805/udp
         volumes:
             - ./config/cn/slice1.yaml:/openair-smf/etc/config.yaml
-        depends_on:
-            - oai-amf
-            - oai-nrf-slice
         networks:
             oai-net:
                 ipv4_address: 10.1.20.81
@@ -142,9 +130,6 @@ services:
             - 8080/tcp
         volumes:
             - ./config/cn/slice1.yaml:/openair-upf/etc/config.yaml
-        depends_on:
-            - oai-nrf-slice
-            - oai-smf-slice1
         environment:
             - TZ=Europe/Paris
         cap_add:
