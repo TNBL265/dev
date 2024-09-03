@@ -155,8 +155,7 @@ services:
         networks:
             oai-net:
                 ipv4_address: 10.1.20.91
-            # oai-n6:
-        entrypoint: ["/openair-upf/bin/oai_upf", "-c", "/openair-upf/etc/config.yaml", "-o"]
+        entrypoint: "/openair-upf/bin/oai_upf -c /openair-upf/etc/config.yaml -o"
 
     oai-upf-slice2:
         container_name: "oai-upf-slice2"
@@ -178,8 +177,7 @@ services:
         networks:
             oai-net:
                 ipv4_address: 10.1.20.92
-            # oai-n6:
-        entrypoint: ["/openair-upf/bin/oai_upf", "-c", "/openair-upf/etc/config.yaml", "-o"]
+        entrypoint: "/openair-upf/bin/oai_upf -c /openair-upf/etc/config.yaml -o"
 
     # RAN
     oai-cu-cp:
@@ -257,7 +255,6 @@ services:
             /tini -v -- /opt/oai-gnb/bin/entrypoint.sh /opt/oai-gnb/bin/nr-softmodem -O /opt/oai-gnb/etc/gnb.conf
             --sa --telnetsrv --rfsim --log_config.global_log_options level,nocolor,time
 
-
     # UE
     oai-nr-ue-1:
         image: oaisoftwarealliance/oai-nr-ue:develop
@@ -308,7 +305,6 @@ services:
             retries: 5
         entrypoint: >
             /tini -v -- /opt/oai-nr-ue/bin/entrypoint.sh /opt/oai-nr-ue/bin/nr-uesoftmodem -O /opt/oai-nr-ue/etc/nr-ue.conf
-
 
 networks:
     oai-net:
