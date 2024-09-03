@@ -6,8 +6,7 @@ services:
         command: ["tcpdump", "-i", "any", "-w", "/tmp/capture.pcap"]
         volumes:
             - ./capture:/tmp
-        networks:
-            - oai-net
+        network_mode: "host"
         cap_add:
             - NET_ADMIN
         privileged: true
