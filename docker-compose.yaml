@@ -276,15 +276,15 @@ services:
         networks:
             oai-net:
                 ipv4_address: 10.1.100.101
-        volumes:
-            - ./config/ran/nrue.uicc.conf:/opt/oai-nr-ue/etc/nr-ue.conf
+        # volumes:
+        #     - ./config/ran/nrue.uicc.conf:/opt/oai-nr-ue/etc/nr-ue.conf
         healthcheck:
             test: /bin/bash -c "pgrep nr-uesoftmodem"
             interval: 10s
             timeout: 5s
             retries: 5
         entrypoint: >
-            /tini -v -- /opt/oai-nr-ue/bin/entrypoint.sh /opt/oai-nr-ue/bin/nr-uesoftmodem -O /opt/oai-nr-ue/etc/nr-ue.conf
+            /tini -v -- /opt/oai-nr-ue/bin/entrypoint.sh /opt/oai-nr-ue/bin/nr-uesoftmodem
 
     oai-nr-ue-2:
         image: oaisoftwarealliance/oai-nr-ue:develop
@@ -303,15 +303,15 @@ services:
         networks:
             oai-net:
                 ipv4_address: 10.1.100.102
-        volumes:
-            - ./config/ran/nrue.uicc.conf:/opt/oai-nr-ue/etc/nr-ue.conf
+        # volumes:
+            # - ./config/ran/nrue.uicc.conf:/opt/oai-nr-ue/etc/nr-ue.conf
         healthcheck:
             test: /bin/bash -c "pgrep nr-uesoftmodem"
             interval: 10s
             timeout: 5s
             retries: 5
         entrypoint: >
-            /tini -v -- /opt/oai-nr-ue/bin/entrypoint.sh /opt/oai-nr-ue/bin/nr-uesoftmodem -O /opt/oai-nr-ue/etc/nr-ue.conf
+            /tini -v -- /opt/oai-nr-ue/bin/entrypoint.sh /opt/oai-nr-ue/bin/nr-uesoftmodem
 
 
 networks:
