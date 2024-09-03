@@ -44,22 +44,22 @@ register_nf:
 http_version: 2
 
 ############## SBI Interfaces
-# nfs:
-#   smf:
-#     host: oai-smf-slice2
-#     sbi:
-#       port: 8080
-#       api_version: v1
-#       interface_name: eth0
-#     n4:
-#       interface_name: eth0
-#       port: 8805
-#   nrf:
-#     host: oai-nrf-slice
-#     sbi:
-#       port: 8080
-#       api_version: v1
-#       interface_name: eth0
+nfs:
+  smf:
+    host: oai-smf-slice2
+    sbi:
+      port: 8080
+      api_version: v1
+      interface_name: eth0
+    n4:
+      interface_name: eth0
+      port: 8805
+  nrf:
+    host: oai-nrf-slice
+    sbi:
+      port: 8080
+      api_version: v1
+      interface_name: eth0
 
 # anchor is set to re-use slice config in SMF
 snssais:
