@@ -6,7 +6,8 @@ services:
         command: ["tcpdump", "-i", "any", "-w", "/tmp/capture.pcap"]
         volumes:
             - ./capture:/tmp
-        network_mode: "host"
+        networks:
+            - oai-net
         cap_add:
             - NET_ADMIN
         privileged: true
@@ -320,7 +321,7 @@ services:
 
 networks:
     oai-net:
-        driver: ipvlan
+        driver: bridge
         name: oai-net
         ipam:
             config:
