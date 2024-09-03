@@ -263,8 +263,6 @@ services:
         environment:
             USE_ADDITIONAL_OPTIONS: --sa --rfsim --log_config.global_log_options level,nocolor,time
                                     -r 106 --numerology 1 -C 3619200000
-                                    --uicc0.key 12345678901234567890123456789012
-                                    --uicc0.opc 12345678123456781234567812345678
                                     --uicc0.imsi 001010000000001
                                     --uicc0.dnn oai1
                                     --uicc0.nssai_sst 1
@@ -273,15 +271,15 @@ services:
         networks:
             oai-net:
                 ipv4_address: 10.1.100.101
-        # volumes:
-        #     - ./config/ran/nrue.uicc.conf:/opt/oai-nr-ue/etc/nr-ue.conf
+        volumes:
+            - ./config/ran/nrue.uicc.conf:/opt/oai-nr-ue/etc/nr-ue.conf
         healthcheck:
             test: /bin/bash -c "pgrep nr-uesoftmodem"
             interval: 10s
             timeout: 5s
             retries: 5
         entrypoint: >
-            /tini -v -- /opt/oai-nr-ue/bin/entrypoint.sh /opt/oai-nr-ue/bin/nr-uesoftmodem
+            /tini -v -- /opt/oai-nr-ue/bin/entrypoint.sh /opt/oai-nr-ue/bin/nr-uesoftmodem -O /opt/oai-nr-ue/etc/nr-ue.conf
 
     oai-nr-ue-2:
         image: oaisoftwarealliance/oai-nr-ue:develop
@@ -290,8 +288,6 @@ services:
         environment:
             USE_ADDITIONAL_OPTIONS: --sa --rfsim --log_config.global_log_options level,nocolor,time
                                     -r 106 --numerology 1 -C 3619200000
-                                    --uicc0.key 12345678901234567890123456789012
-                                    --uicc0.opc 12345678123456781234567812345678
                                     --uicc0.imsi 001010000000002
                                     --uicc0.dnn oai2
                                     --uicc0.nssai_sst 1
@@ -300,16 +296,16 @@ services:
         networks:
             oai-net:
                 ipv4_address: 10.1.100.102
-        # volumes:
-        #     - ./config/ran/nrue.uicc.conf:/opt/oai-nr-ue/etc/nr-ue.conf
+        volumes:
+            - ./config/ran/nrue.uicc.conf:/opt/oai-nr-ue/etc/nr-ue.conf
         healthcheck:
             test: /bin/bash -c "pgrep nr-uesoftmodem"
             interval: 10s
             timeout: 5s
             retries: 5
         entrypoint: >
-            /tini -v -- /opt/oai-nr-ue/bin/entrypoint.sh /opt/oai-nr-ue/bin/nr-uesoftmodem
-            
+            /tini -v -- /opt/oai-nr-ue/bin/entrypoint.sh /opt/oai-nr-ue/bin/nr-uesoftmodem -O /opt/oai-nr-ue/etc/nr-ue.conf
+
 networks:
     oai-net:
         driver: ipvlan
