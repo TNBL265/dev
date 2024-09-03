@@ -160,6 +160,7 @@ services:
             retries: 5
         networks:
             oai-net:
+                ipv4_address: 10.1.20.10
         tty: true
         entrypoint: ["bash", "-c", "/startup_scripts/oai-cu-cp.sh"]
 
@@ -176,7 +177,7 @@ services:
             - ./startup_scripts:/startup_scripts
         networks:
             oai-net:
-                ipv4_address: 10.1.20.10
+                ipv4_address: 10.1.20.11
         tty: true
         entrypoint: ["bash", "-c", "/startup_scripts/oai-cu-up-slice1.sh"]
 
