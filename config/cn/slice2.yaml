@@ -61,7 +61,7 @@ nfs:
       api_version: v1
       interface_name: eth0
   upf:
-    host: oai-upf
+    host: oai-upf-slice2
     sbi:
       port: 8080
       api_version: v1
