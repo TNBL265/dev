@@ -309,7 +309,7 @@ services:
 
 networks:
     oai-net:
-        driver: bridge
+        driver: ipvlan
         name: oai-net
         ipam:
             config:
