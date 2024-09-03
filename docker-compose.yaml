@@ -107,66 +107,43 @@ services:
                 ipv4_address: 10.1.20.7
         privileged: true
 
-    # oai-smf-slice1:
-    #     container_name: "oai-smf-slice1"
-    #     image: oaisoftwarealliance/oai-smf:develop
-    #     expose:
-    #         - 80/tcp
-    #         - 8080/tcp
-    #         - 8805/udp
-    #     volumes:
-    #         - ./config/cn/slice1.yaml:/openair-smf/etc/config.yaml
-    #     networks:
-    #         oai-net:
-    #             ipv4_address: 10.1.20.81
-    #     privileged: true
-    
-    oai-smf-slice2:
-        container_name: "oai-smf-slice2"
+    oai-smf-slice1:
+        container_name: "oai-smf-slice1"
         image: oaisoftwarealliance/oai-smf:develop
         expose:
             - 80/tcp
             - 8080/tcp
             - 8805/udp
         volumes:
-            - ./config/cn/slice2.yaml:/openair-smf/etc/config.yaml
+            - ./config/cn/slice1.yaml:/openair-smf/etc/config.yaml
         networks:
             oai-net:
-                ipv4_address: 10.1.20.82
+                ipv4_address: 10.1.20.81
         privileged: true
-
-    # oai-upf-slice1:
-    #     container_name: "oai-upf-slice1"
-    #     image: oaisoftwarealliance/oai-upf:develop
+    
+    # oai-smf-slice2:
+    #     container_name: "oai-smf-slice2"
+    #     image: oaisoftwarealliance/oai-smf:develop
     #     expose:
-    #         - 2152/udp
-    #         - 8805/udp
+    #         - 80/tcp
     #         - 8080/tcp
+    #         - 8805/udp
     #     volumes:
-    #         - ./config/cn/slice1.yaml:/openair-upf/etc/config.yaml
-    #     environment:
-    #         - TZ=Europe/Paris
-    #     cap_add:
-    #         - NET_ADMIN
-    #         - SYS_ADMIN
-    #     cap_drop:
-    #         - ALL
-    #     privileged: true
+    #         - ./config/cn/slice2.yaml:/openair-smf/etc/config.yaml
     #     networks:
     #         oai-net:
-    #             ipv4_address: 10.1.20.91
-    #         oai-n6:
-    #     entrypoint: ["/openair-upf/bin/oai_upf", "-c", "/openair-upf/etc/config.yaml", "-o"]
+    #             ipv4_address: 10.1.20.82
+    #     privileged: true
 
-    oai-upf-slice2:
-        container_name: "oai-upf-slice2"
+    oai-upf-slice1:
+        container_name: "oai-upf-slice1"
         image: oaisoftwarealliance/oai-upf:develop
         expose:
             - 2152/udp
             - 8805/udp
             - 8080/tcp
         volumes:
-            - ./config/cn/slice2.yaml:/openair-upf/etc/config.yaml
+            - ./config/cn/slice1.yaml:/openair-upf/etc/config.yaml
         environment:
             - TZ=Europe/Paris
         cap_add:
@@ -177,9 +154,32 @@ services:
         privileged: true
         networks:
             oai-net:
-                ipv4_address: 10.1.20.92
+                ipv4_address: 10.1.20.91
             oai-n6:
         entrypoint: ["/openair-upf/bin/oai_upf", "-c", "/openair-upf/etc/config.yaml", "-o"]
+
+    # oai-upf-slice2:
+    #     container_name: "oai-upf-slice2"
+    #     image: oaisoftwarealliance/oai-upf:develop
+    #     expose:
+    #         - 2152/udp
+    #         - 8805/udp
+    #         - 8080/tcp
+    #     volumes:
+    #         - ./config/cn/slice2.yaml:/openair-upf/etc/config.yaml
+    #     environment:
+    #         - TZ=Europe/Paris
+    #     cap_add:
+    #         - NET_ADMIN
+    #         - SYS_ADMIN
+    #     cap_drop:
+    #         - ALL
+    #     privileged: true
+    #     networks:
+    #         oai-net:
+    #             ipv4_address: 10.1.20.92
+    #         oai-n6:
+    #     entrypoint: ["/openair-upf/bin/oai_upf", "-c", "/openair-upf/etc/config.yaml", "-o"]
 
     # RAN
     oai-cu-cp:
@@ -202,25 +202,8 @@ services:
         tty: true
         entrypoint: ["bash", "-c", "/startup_scripts/oai-cu-cp.sh"]
 
-    # oai-cu-up-slice1:
-    #     container_name: "oai-cu-up-slice1"
-    #     image: oai-nr-cuup:ubuntu22
-    #     privileged: true
-    #     environment:
-    #         USE_ADDITIONAL_OPTIONS: --sa
-    #     ulimits:
-    #         core: -1 # for core dumps
-    #     volumes:
-    #         - ./config/ran/gnb-cuup.sa.f1.slice1.conf:/opt/oai-gnb/etc/gnb.conf
-    #         - ./startup_scripts:/startup_scripts
-    #     networks:
-    #         oai-net:
-    #             ipv4_address: 10.1.20.11
-    #     tty: true
-    #     entrypoint: ["bash", "-c", "/startup_scripts/oai-cu-up-slice1.sh"]
-
-    oai-cu-up-slice2:
-        container_name: "oai-cu-up-slice2"
+    oai-cu-up-slice1:
+        container_name: "oai-cu-up-slice1"
         image: oai-nr-cuup:ubuntu22
         privileged: true
         environment:
@@ -228,13 +211,30 @@ services:
         ulimits:
             core: -1 # for core dumps
         volumes:
-            - ./config/ran/gnb-cuup.sa.f1.slice2.conf:/opt/oai-gnb/etc/gnb.conf
+            - ./config/ran/gnb-cuup.sa.f1.slice1.conf:/opt/oai-gnb/etc/gnb.conf
             - ./startup_scripts:/startup_scripts
         networks:
             oai-net:
-                ipv4_address: 10.1.20.12
+                ipv4_address: 10.1.20.11
         tty: true
-        entrypoint: ["bash", "-c", "/startup_scripts/oai-cu-up-slice2.sh"]
+        entrypoint: ["bash", "-c", "/startup_scripts/oai-cu-up-slice1.sh"]
+
+    # oai-cu-up-slice2:
+    #     container_name: "oai-cu-up-slice2"
+    #     image: oai-nr-cuup:ubuntu22
+    #     privileged: true
+    #     environment:
+    #         USE_ADDITIONAL_OPTIONS: --sa
+    #     ulimits:
+    #         core: -1 # for core dumps
+    #     volumes:
+    #         - ./config/ran/gnb-cuup.sa.f1.slice2.conf:/opt/oai-gnb/etc/gnb.conf
+    #         - ./startup_scripts:/startup_scripts
+    #     networks:
+    #         oai-net:
+    #             ipv4_address: 10.1.20.12
+    #     tty: true
+    #     entrypoint: ["bash", "-c", "/startup_scripts/oai-cu-up-slice2.sh"]
 
     oai-du:
         image: oaisoftwarealliance/oai-gnb:develop
@@ -281,30 +281,30 @@ services:
             retries: 5
         entrypoint: ["bash", "-c", "/startup_scripts/oai-nr-ue-rfsim.sh"]
 
-    # oai-nr-ue-2:
-    #     image: oaisoftwarealliance/oai-nr-ue:develop
-    #     privileged: true
-    #     container_name: oai-nr-ue-2
-    #     environment:
-    #         USE_ADDITIONAL_OPTIONS: --sa --rfsim --log_config.global_log_options level,nocolor,time
-    #                                 -r 106 --numerology 1 -C 3619200000
-    #                                 --uicc0.imsi 001010000000001
-    #                                 --uicc0.dnn oai2
-    #                                 --uicc0.nssai_sst 1
-    #                                 --uicc0.nssai_sd 2
-    #                                 --rfsimulator.serveraddr 10.1.100.10
-    #     networks:
-    #         oai-net:
-    #             ipv4_address: 10.1.100.102
-    #     volumes:
-    #         - ./config/ran/nrue.uicc.conf:/opt/oai-nr-ue/etc/nr-ue.conf
-    #         - ./startup_scripts:/startup_scripts
-    #     healthcheck:
-    #         test: /bin/bash -c "pgrep nr-uesoftmodem"
-    #         interval: 10s
-    #         timeout: 5s
-    #         retries: 5
-    #     entrypoint: ["bash", "-c", "/startup_scripts/oai-nr-ue-rfsim.sh"]
+    oai-nr-ue-2:
+        image: oaisoftwarealliance/oai-nr-ue:develop
+        privileged: true
+        container_name: oai-nr-ue-2
+        environment:
+            USE_ADDITIONAL_OPTIONS: --sa --rfsim --log_config.global_log_options level,nocolor,time
+                                    -r 106 --numerology 1 -C 3619200000
+                                    --uicc0.imsi 001010000000001
+                                    --uicc0.dnn oai2
+                                    --uicc0.nssai_sst 1
+                                    --uicc0.nssai_sd 2
+                                    --rfsimulator.serveraddr 10.1.100.10
+        networks:
+            oai-net:
+                ipv4_address: 10.1.100.102
+        volumes:
+            - ./config/ran/nrue.uicc.conf:/opt/oai-nr-ue/etc/nr-ue.conf
+            - ./startup_scripts:/startup_scripts
+        healthcheck:
+            test: /bin/bash -c "pgrep nr-uesoftmodem"
+            interval: 10s
+            timeout: 5s
+            retries: 5
+        entrypoint: ["bash", "-c", "/startup_scripts/oai-nr-ue-rfsim.sh"]
 
 
 networks:
