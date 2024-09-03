@@ -5,18 +5,12 @@ services:
         image: mysql:8.0
         volumes:
             - ./database/oai_db.sql:/docker-entrypoint-initdb.d/oai_db.sql
-            - ./healthscripts/mysql-healthcheck.sh:/tmp/mysql-healthcheck.sh
         environment:
             - TZ=Europe/Paris
             - MYSQL_DATABASE=oai_db
             - MYSQL_USER=test
             - MYSQL_PASSWORD=test
             - MYSQL_ROOT_PASSWORD=linux
-        healthcheck:
-            test: /bin/bash -c "/tmp/mysql-healthcheck.sh"
-            interval: 10s
-            timeout: 5s
-            retries: 30
         networks:
             oai-net:
                 ipv4_address: 10.1.20.1
