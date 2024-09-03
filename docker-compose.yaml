@@ -200,7 +200,9 @@ services:
             oai-net:
                 ipv4_address: 10.1.20.10
         tty: true
-        # entrypoint: ["bash", "-c", "/startup_scripts/oai-cu-cp.sh"]
+        entrypoint: >
+            /tini -v -- /opt/oai-gnb/bin/entrypoint.sh /opt/oai-gnb/bin/nr-softmodem -O /opt/oai-gnb/etc/gnb.conf 
+            --sa --telnetsrv --telnetsrv.shrmod ci --log_config.global_log_options level,nocolor,time,line_num,function
 
     oai-cu-up-slice1:
         container_name: "oai-cu-up-slice1"
@@ -217,7 +219,8 @@ services:
             oai-net:
                 ipv4_address: 10.1.20.11
         tty: true
-        # entrypoint: ["bash", "-c", "/startup_scripts/oai-cu-up-slice1.sh"]
+        entrypoint: >
+            /tini -v -- /opt/oai-gnb/bin/entrypoint.sh /opt/oai-gnb/bin/nr-cuup -O /opt/oai-gnb/etc/gnb.conf --sa
 
     oai-cu-up-slice2:
         container_name: "oai-cu-up-slice2"
@@ -234,7 +237,8 @@ services:
             oai-net:
                 ipv4_address: 10.1.20.12
         tty: true
-        # entrypoint: ["bash", "-c", "/startup_scripts/oai-cu-up-slice2.sh"]
+        entrypoint: >
+            /tini -v -- /opt/oai-gnb/bin/entrypoint.sh /opt/oai-gnb/bin/nr-cuup -O /opt/oai-gnb/etc/gnb.conf --sa
 
     oai-du:
         image: oaisoftwarealliance/oai-gnb:develop
@@ -253,7 +257,10 @@ services:
             interval: 10s
             timeout: 5s
             retries: 5
-        # entrypoint: ["bash", "-c", "/startup_scripts/oai-du-rfsim.sh"]
+        entrypoint: >
+            /tini -v -- /opt/oai-gnb/bin/entrypoint.sh /opt/oai-gnb/bin/nr-softmodem -O /opt/oai-gnb/etc/gnb.conf
+            --sa --telnetsrv --rfsim --log_config.global_log_options level,nocolor,time
+
 
     # UE
     oai-nr-ue-1:
@@ -273,13 +280,14 @@ services:
                 ipv4_address: 10.1.100.101
         volumes:
             - ./config/ran/nrue.uicc.conf:/opt/oai-nr-ue/etc/nr-ue.conf
-            - ./startup_scripts:/startup_scripts
+            # - ./startup_scripts:/startup_scripts
         healthcheck:
             test: /bin/bash -c "pgrep nr-uesoftmodem"
             interval: 10s
             timeout: 5s
             retries: 5
-        entrypoint: ["bash", "-c", "/startup_scripts/oai-nr-ue-rfsim.sh"]
+        entrypoint: >
+            /tini -v -- /opt/oai-nr-ue/bin/entrypoint.sh /opt/oai-nr-ue/bin/nr-uesoftmodem -O /opt/oai-nr-ue/etc/nr-ue.conf ${USE_ADDITIONAL_OPTIONS} &
 
     oai-nr-ue-2:
         image: oaisoftwarealliance/oai-nr-ue:develop
@@ -298,13 +306,14 @@ services:
                 ipv4_address: 10.1.100.102
         volumes:
             - ./config/ran/nrue.uicc.conf:/opt/oai-nr-ue/etc/nr-ue.conf
-            - ./startup_scripts:/startup_scripts
+            # - ./startup_scripts:/startup_scripts
         healthcheck:
             test: /bin/bash -c "pgrep nr-uesoftmodem"
             interval: 10s
             timeout: 5s
             retries: 5
-        entrypoint: ["bash", "-c", "/startup_scripts/oai-nr-ue-rfsim.sh"]
+        entrypoint: >
+            /tini -v -- /opt/oai-nr-ue/bin/entrypoint.sh /opt/oai-nr-ue/bin/nr-uesoftmodem -O /opt/oai-nr-ue/etc/nr-ue.conf ${USE_ADDITIONAL_OPTIONS} &
 
 
 networks:
