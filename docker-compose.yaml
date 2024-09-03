@@ -281,7 +281,7 @@ services:
             timeout: 5s
             retries: 5
         entrypoint: >
-            /tini -v -- /opt/oai-nr-ue/bin/entrypoint.sh /opt/oai-nr-ue/bin/nr-uesoftmodem -O /opt/oai-nr-ue/etc/nr-ue.conf
+            /tini -v -- /opt/oai-nr-ue/bin/entrypoint.sh /opt/oai-nr-ue/bin/nr-uesoftmodem
 
     oai-nr-ue-2:
         image: oaisoftwarealliance/oai-nr-ue:develop
@@ -308,8 +308,8 @@ services:
             timeout: 5s
             retries: 5
         entrypoint: >
-            /tini -v -- /opt/oai-nr-ue/bin/entrypoint.sh /opt/oai-nr-ue/bin/nr-uesoftmodem -O /opt/oai-nr-ue/etc/nr-ue.conf
-
+            /tini -v -- /opt/oai-nr-ue/bin/entrypoint.sh /opt/oai-nr-ue/bin/nr-uesoftmodem
+            
 networks:
     oai-net:
         driver: ipvlan
