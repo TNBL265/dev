@@ -1,6 +1,6 @@
 services:
     oai-du:
-        image: oaisoftwarealliance/oai-gnb:develop
+        image: oai-nr-softmodem:ubuntu22
         privileged: true
         container_name: oai-du
         environment:
