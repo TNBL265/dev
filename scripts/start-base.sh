@@ -1,6 +1,6 @@
 #!/bin/bash
 
-docker network create oai-net --config-from ../oai-net.yaml
+docker network create -d ipvlan --subnet=10.1.20.0/24 --gateway=10.1.20.1 -o parent=eth0 oai-net
 
 docker compose -f ../docker-compose-cn.yaml up -d
 docker compose -f ../docker-compose-ran.yaml up -d
