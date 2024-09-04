@@ -1,7 +1,8 @@
 #!/bin/bash
 
-restart_container() {
-    container_name=$1
+restart_ue() {
+    slice_number=$1
+    container_name="oai-nr-ue-slice$slice_number"
     echo "Restarting $container_name..."
     docker restart $container_name
 }
@@ -13,5 +14,5 @@ fi
 
 for slice_number in "$@"
 do
-    restart_container "$slice_number"
+    restart_ue "$slice_number"
 done
