@@ -1,0 +1,9 @@
+networks:
+  oai-net:
+    driver: ipvlan
+    ipam:
+      config:
+        - subnet: 10.1.20.0/24
+          gateway: 10.1.20.1
+    driver_opts:
+      parent: eth0

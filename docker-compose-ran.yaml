@@ -1,0 +1,59 @@
+services:
+    oai-cu-cp:
+        container_name: "oai-cu-cp"
+        image: oai-nr-softmodem:ubuntu22
+        privileged: true
+        ulimits:
+          core: -1 # for core dumps
+        volumes:
+            - ./config/ran/gnb-cucp.sa.f1.conf:/opt/oai-gnb/etc/gnb.conf
+        healthcheck:
+            test: /bin/bash -c "ps aux | grep -v grep | grep -c softmodem"
+            interval: 10s
+            timeout: 5s
+            retries: 5
+        networks:
+            oai-net:
+                ipv4_address: 10.1.20.10
+        tty: true
+        entrypoint: >
+            /tini -v -- /opt/oai-gnb/bin/entrypoint.sh /opt/oai-gnb/bin/nr-softmodem -O /opt/oai-gnb/etc/gnb.conf 
+            --sa --telnetsrv --telnetsrv.shrmod ci --log_config.global_log_options level,nocolor,time,line_num,function
+
+    oai-cu-up-slice1:
+        container_name: "oai-cu-up-slice1"
+        image: oai-nr-cuup:ubuntu22
+        privileged: true
+        environment:
+            USE_ADDITIONAL_OPTIONS: --sa
+        ulimits:
+            core: -1 # for core dumps
+        volumes:
+            - ./config/ran/gnb-cuup.sa.f1.slice1.conf:/opt/oai-gnb/etc/gnb.conf
+        networks:
+            oai-net:
+                ipv4_address: 10.1.20.11
+        tty: true
+        entrypoint: >
+            /tini -v -- /opt/oai-gnb/bin/entrypoint.sh /opt/oai-gnb/bin/nr-cuup -O /opt/oai-gnb/etc/gnb.conf --sa
+
+    oai-cu-up-slice2:
+        container_name: "oai-cu-up-slice2"
+        image: oai-nr-cuup:ubuntu22
+        privileged: true
+        environment:
+            USE_ADDITIONAL_OPTIONS: --sa
+        ulimits:
+            core: -1 # for core dumps
+        volumes:
+            - ./config/ran/gnb-cuup.sa.f1.slice2.conf:/opt/oai-gnb/etc/gnb.conf
+        networks:
+            oai-net:
+                ipv4_address: 10.1.20.12
+        tty: true
+        entrypoint: >
+            /tini -v -- /opt/oai-gnb/bin/entrypoint.sh /opt/oai-gnb/bin/nr-cuup -O /opt/oai-gnb/etc/gnb.conf --sa
+            
+networks:
+    oai-net:
+        external: true
