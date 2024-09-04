@@ -1,4 +1,17 @@
 services:
+    nearRT-RIC:
+        container_name: "oai-flexric"
+        image: oai-nr-flexric:ubuntu22
+        privileged: true
+        ulimits:
+          core: -1 # for core dumps
+        volumes:
+            - ./conf_ran/flexric.conf:/usr/local/etc/flexric/flexric.conf
+        networks:
+            oai-ran-mplane:
+                ipv4_address: 172.60.0.100
+        tty: true
+
     oai-cu-cp:
         container_name: "oai-cu-cp"
         image: oai-nr-softmodem:ubuntu22
@@ -15,6 +28,7 @@ services:
         networks:
             oai-net:
                 ipv4_address: 10.1.20.10
+            oai-ran-mplane:
         tty: true
         entrypoint: >
             /tini -v -- /opt/oai-gnb/bin/entrypoint.sh /opt/oai-gnb/bin/nr-softmodem -O /opt/oai-gnb/etc/gnb.conf 
@@ -33,6 +47,7 @@ services:
         networks:
             oai-net:
                 ipv4_address: 10.1.20.11
+            oai-ran-mplane:
         tty: true
         entrypoint: >
             /tini -v -- /opt/oai-gnb/bin/entrypoint.sh /opt/oai-gnb/bin/nr-cuup -O /opt/oai-gnb/etc/gnb.conf --sa
@@ -50,6 +65,7 @@ services:
         networks:
             oai-net:
                 ipv4_address: 10.1.20.12
+            oai-ran-mplane:
         tty: true
         entrypoint: >
             /tini -v -- /opt/oai-gnb/bin/entrypoint.sh /opt/oai-gnb/bin/nr-cuup -O /opt/oai-gnb/etc/gnb.conf --sa
@@ -57,3 +73,13 @@ services:
 networks:
     oai-net:
         external: true
+
+    oai-ran-mplane:
+        driver: bridge
+        name: oai-ran-mplane
+        ipam:
+            config:
+                - subnet: 172.60.0.0/24
+                  gateway: 172.60.0.1
+        driver_opts:
+            com.docker.network.bridge.name: "oai-ran-mplane"

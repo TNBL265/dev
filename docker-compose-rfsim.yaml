@@ -8,6 +8,7 @@ services:
         networks:
             oai-net:
                 ipv4_address: 10.1.100.10
+            oai-ran-mplane:
         volumes:
             - ./config/ran/gnb-du.sa.band78.106prb.rfsim.conf:/opt/oai-gnb/etc/gnb.conf
         healthcheck:
@@ -71,4 +72,7 @@ services:
 
 networks:
     oai-net:
+        external: true
+
+    oai-ran-mplane:
         external: true
