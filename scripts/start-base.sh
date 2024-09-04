@@ -1,5 +1,6 @@
 #!/bin/bash
 
-docker compose -f ../oai-net.yaml up -d
+docker network create oai-net --config-from ../network-oai-net.yaml
+
 docker compose -f ../docker-compose-cn.yaml up -d
 docker compose -f ../docker-compose-ran.yaml up -d
