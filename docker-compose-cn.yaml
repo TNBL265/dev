@@ -148,6 +148,7 @@ services:
         networks:
             oai-net:
                 ipv4_address: 10.1.20.91
+            oai-n6:
         entrypoint: "/openair-upf/bin/oai_upf -c /openair-upf/etc/config.yaml -o"
 
     oai-upf-slice2:
@@ -175,3 +176,12 @@ services:
 networks:
     oai-net:
         external: true
+    oai-n6:
+        driver: bridge
+        name: oai-n6
+        ipam:
+            config:
+                - subnet: 172.50.0.0/24
+                  gateway: 172.50.0.1
+        driver_opts:
+            com.docker.network.bridge.name: "oai-n6"
