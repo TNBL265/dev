@@ -176,7 +176,14 @@ services:
 
 networks:
     oai-net:
-        external: true
+        driver: bridge
+        name: oai-net
+        ipam:
+            config:
+                - subnet: 10.1.0.0/16
+                  gateway: 10.1.0.1
+        driver_opts:
+            com.docker.network.bridge.name: "oai-net"
     oai-n6:
         driver: bridge
         name: oai-n6
