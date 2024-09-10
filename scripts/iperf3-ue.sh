@@ -17,4 +17,5 @@ if [ -z "$ue_ip" ]; then
 fi
 
 command="docker exec -it \"$container_name\" iperf3 -c \"$ip\" -B \"$ue_ip\" -p \"$port\" -t 1000 -R"
+echo $command
 eval $command
