@@ -9,7 +9,7 @@ ip=$1
 slice_number=$2
 container_name="oai-nr-ue-slice$slice_number"
 port="520$slice_number"
-ue_ip=$(docker exec -it "$container_name" hostname -I | awk '{print $1}')
+ue_ip=$(docker exec -it "$container_name" ifconfig oaitun_ue1 | grep 'inet ' | awk '{print $2}')
 
 if [ -z "$ue_ip" ]; then
     echo "Failed to retrieve the UE IP address from container $container_name"
